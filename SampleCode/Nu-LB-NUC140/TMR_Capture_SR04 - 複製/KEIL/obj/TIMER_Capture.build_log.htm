@@ -1,0 +1,74 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: £gVision V5.31.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: jiang yijun, fcu, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.31.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.31.0.0
+Dialog DLL:      DARMCM1.DLL V1.19.3.0
+Target DLL:      Nu_Link.dll V3.03
+Dialog DLL:      TARMCM1.DLL V1.14.2.0
+ 
+<h2>Project:</h2>
+D:\Downloads\lab5 vr\SampleCode\Nu-LB-NUC140\TMR_Capture_SR04 - ½Æ»s\KEIL\Nu-LB-NUC140_TIMER_Capture.uvproj
+Project File Date:  12/05/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'TIMER_Capture'
+creating preprocessor file for uart.c...
+creating preprocessor file for clk.c...
+creating preprocessor file for timer.c...
+creating preprocessor file for system_NUC100Series.c...
+creating preprocessor file for gpio.c...
+creating preprocessor file for sys.c...
+creating preprocessor file for retarget.c...
+creating preprocessor file for spi.c...
+creating preprocessor file for LCD.c...
+creating preprocessor file for Scankey.c...
+creating preprocessor file for SYS_init.c...
+creating preprocessor file for adc.c...
+creating preprocessor file for main.c...
+creating preprocessor file for Seven_Segment.c...
+compiling main.c...
+..\MCU_init.h(35): warning:  #1-D: last line of file ends without a newline
+  #define ADC_OPERATION_MODE    ADC_OPERATION_MODE_SINGLE_CYCLE // SINGLE, SINGLE_CYCLE, CONTINUOUS
+..\main.c(101): warning:  #223-D: function "Clear" declared implicitly
+  		Clear(platx[i],platy[i], 32);
+..\main.c(108): warning:  #223-D: function "Clear" declared implicitly
+  			Clear(platx[0],platy[0]-8, 32);
+..\main.c(111): warning:  #223-D: function "rand" declared implicitly
+  			platx[2] = rand() % 97;
+..\main.c(82): warning:  #177-D: variable "j"  was declared but never referenced
+  	int i, j;
+..\main.c(151): warning:  #223-D: function "srand" declared implicitly
+  	srand(u32ADCvalue);
+..\main.c(153): warning:  #223-D: function "rand" declared implicitly
+  	platx[0] = rand()%97;
+..\main.c(158): warning:  #223-D: function "draw_Bmp128x8" declared implicitly
+  	draw_Bmp128x8(0,0,FG_COLOR,BG_COLOR,bigsting);
+..\main.c(166): warning:  #223-D: function "ScanKey" declared implicitly
+  		keyin = ScanKey();
+..\main.c(181): warning:  #1-D: last line of file ends without a newline
+  }
+..\main.c: 10 warnings, 0 errors
+linking...
+Program Size: Code=5168 RO-data=312 RW-data=368 ZI-data=2080  
+After Build - User command #1: fromelf --bin ".\obj\TIMER_Capture.axf" --output ".\obj\TIMER_Capture.bin"
+After Build - User command #2: fromelf --text -c ".\obj\TIMER_Capture.axf" --output ".\obj\TIMER_Capture.txt"
+".\obj\TIMER_Capture.axf" - 0 Error(s), 10 Warning(s).
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
