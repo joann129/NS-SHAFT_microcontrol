@@ -102,14 +102,14 @@ void TMR1_IRQHandler(void)
 	}*/
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<totalPlat; i++) {
-		if(peoplex == platx[i]+xlong && ( platy[i]<=peopley+peopleylong || peopley<platy[i]+platylong ) ) {	//whether on the plat
+		if(peoplex == platx[i]+xlong && ( platy[i]<=peopley+peopleylong && peopley<platy[i]+platylong ) ) {	//whether on the plat
 			break;
 		}
 	}
-	if(i == totalPlat) {	//on the plat
-		peoplex += 1;
-	}else{								//not on the plat
+	if(i == totalPlat) {	//not on the plat
 		peoplex -= 1;
+	}else{								//on the plat
+		peoplex += 1;
 	}
 	//peopley -= 1;
 	for(i=0; i<totalPlat; i++) {

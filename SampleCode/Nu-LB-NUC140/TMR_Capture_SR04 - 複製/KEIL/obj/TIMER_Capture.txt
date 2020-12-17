@@ -1754,7 +1754,7 @@
         0x00000d5a:    37ba        .7      ADDS     r7,r7,#0xba
         0x00000d5c:    5e79        y^      LDRSH    r1,[r7,r1]
         0x00000d5e:    4299        .B      CMP      r1,r3
-        0x00000d60:    dd05        ..      BLE      0xd6e ; TMR1_IRQHandler + 74
+        0x00000d60:    dc02        ..      BGT      0xd68 ; TMR1_IRQHandler + 68
         0x00000d62:    3110        .1      ADDS     r1,r1,#0x10
         0x00000d64:    42a9        .B      CMP      r1,r5
         0x00000d66:    dc02        ..      BGT      0xd6e ; TMR1_IRQHandler + 74
@@ -1763,7 +1763,7 @@
         0x00000d6c:    dbef        ..      BLT      0xd4e ; TMR1_IRQHandler + 42
         0x00000d6e:    2807        .(      CMP      r0,#7
         0x00000d70:    d039        9.      BEQ      0xde6 ; TMR1_IRQHandler + 194
-        0x00000d72:    1e52        R.      SUBS     r2,r2,#1
+        0x00000d72:    1c52        R.      ADDS     r2,r2,#1
         0x00000d74:    8062        b.      STRH     r2,[r4,#2]
         0x00000d76:    4f32        2O      LDR      r7,[pc,#200] ; [0xe40] = 0x20000034
         0x00000d78:    2400        .$      MOVS     r4,#0
@@ -1818,7 +1818,7 @@
         0x00000de0:    2868        h(      CMP      r0,#0x68
         0x00000de2:    d002        ..      BEQ      0xdea ; TMR1_IRQHandler + 198
         0x00000de4:    e015        ..      B        0xe12 ; TMR1_IRQHandler + 238
-        0x00000de6:    1c52        R.      ADDS     r2,r2,#1
+        0x00000de6:    1e52        R.      SUBS     r2,r2,#1
         0x00000de8:    e7c4        ..      B        0xd74 ; TMR1_IRQHandler + 80
         0x00000dea:    2100        .!      MOVS     r1,#0
         0x00000dec:    5e79        y^      LDRSH    r1,[r7,r1]

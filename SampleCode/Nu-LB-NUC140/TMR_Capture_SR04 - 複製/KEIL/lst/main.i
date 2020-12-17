@@ -22034,14 +22034,14 @@ void TMR1_IRQHandler(void)
  
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<7; i++) {
-		if(peoplex == platx[i]+8 && ( platy[i]<=peopley+8 || peopley<platy[i]+16 ) ) {	
+		if(peoplex == platx[i]+8 && ( platy[i]<=peopley+8 && peopley<platy[i]+16 ) ) {	
 			break;
 		}
 	}
 	if(i == 7) {	
-		peoplex += 1;
-	}else{								
 		peoplex -= 1;
+	}else{								
+		peoplex += 1;
 	}
 	
 	for(i=0; i<7; i++) {
