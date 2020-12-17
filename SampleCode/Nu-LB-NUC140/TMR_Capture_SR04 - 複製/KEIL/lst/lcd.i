@@ -21214,16 +21214,17 @@ void clear_LCD(void)
 	lcdWriteData(0x0f);
 }
 
-void Clear(int16_t x, int16_t y, int longg) {
+void Clear(int16_t x, int16_t y,int ylong) {
 	int16_t i,j;
 	for (j=0;j<64;j++)
 	  for (i=0;i<128;i++)
 	     DisplayBuffer[i+j/8*128]=0;
 	
-
-	lcdSetAddr(y/8+1, (128+1-x-longg));
-	for(i=0; i<longg; i++) {
-		lcdWriteData(0x00);
+	for(j=0; j<ylong; j++) {
+		lcdSetAddr(y/8+j, (128+1-x-8));
+		for(i=0; i<8; i++) {
+			lcdWriteData(0x00);
+		}
 	}
 }
 
@@ -21330,27 +21331,6 @@ void draw_Bmp120x8(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, uns
 		 }
 }
 
-void draw_Bmp8x16(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
-{
-	uint8_t t,i,k, kx,ky;
-	if (x<(128-7) && y<(64-7)) 
-		 for (i=0;i<8;i++){
-			   kx=x+i;
-				 t=bitmap[i];					 
-				 for (k=0;k<8;k++) {
-					      ky=y+k;
-					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
-				}
-				 t=bitmap[i+8];					 
-				 for (k=0;k<8;k++) {
-					      ky=y+k+8;
-					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
-				}				 
-		     
-	       
-		 }
-}
-
 void draw_Bmp16x8(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
 {
 	uint8_t t,i,k,kx,ky;
@@ -21387,10 +21367,29 @@ void draw_Bmp16x16(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, uns
 		 }
 }
 
+void draw_Bmp8x32(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
+{
+	uint8_t t,i,j,k, kx,ky;
+	if (x<(128-7) && y<(64-31)) 
+	   for (j=0;j<4; j++){		 
+		     for (i=0;i<8;i++) {	
+            kx=x+i;
+					  t=bitmap[i+j*8];					 
+					  for (k=0;k<8;k++) {
+					      ky=y+j*8+k;
+					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
+						}
+		     
+	       
+		     }
+		 }
+}
+
+
 void draw_Bmp16x24(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
 {
 	uint8_t t,i,j,k, kx,ky;
-	if (x<(128-15) && y<(64-15)) 
+	if (x<(128-15) && y<(64-31)) 
 	   for (j=0;j<3; j++){		 
 		     for (i=0;i<16;i++) {	
             kx=x+i;
@@ -21460,6 +21459,45 @@ void draw_Bmp16x48(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, uns
 	       
 			   
 		     }		 
+		 }
+}
+
+void draw_Bmp8x16(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
+{
+	uint8_t t,i,k, kx,ky;
+	if (x<(128-7) && y<(64-7)) 
+		 for (i=0;i<8;i++){
+			   kx=x+i;
+				 t=bitmap[i];					 
+				 for (k=0;k<8;k++) {
+					      ky=y+k;
+					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
+				}
+				 t=bitmap[i+8];					 
+				 for (k=0;k<8;k++) {
+					      ky=y+k+8;
+					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
+				}				 
+		     
+	       
+		 }
+}
+
+void draw_Bmp8x64(int16_t x, int16_t y, uint16_t fgColor, uint16_t bgColor, unsigned char bitmap[])
+{
+	uint8_t t,i,j,k, kx,ky;
+	if (x<(128-7) && y==0) 
+	   for (j=0;j<8; j++){		 
+		     for (i=0;i<8;i++) {	
+            kx=x+i;
+					  t=bitmap[i+j*8];					 
+					  for (k=0;k<8;k++) {
+					      ky=y+j*8+k;
+					      if (t&(0x01<<k)) draw_Pixel(kx,ky,fgColor,bgColor);
+						}
+		     
+	       
+		     }
 		 }
 }
 
