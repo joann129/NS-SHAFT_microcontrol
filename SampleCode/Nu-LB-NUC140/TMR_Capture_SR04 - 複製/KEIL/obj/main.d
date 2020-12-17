@@ -31,3 +31,4 @@
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\obj\main.o: ..\..\..\..\Library\Nu-LB-NUC140\Include\LCD.h
+.\obj\main.o: ..\..\..\..\Library\Nu-LB-NUC140\Include\Scankey.h

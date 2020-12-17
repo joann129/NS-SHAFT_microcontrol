@@ -8,9 +8,14 @@
 #include <math.h>
 #include <string.h>
 #include "LCD.h"
+#include "Scankey.h"
 #define yseed 7
 #define totalPlat 7
 #define ylong 8
+#define platylong 16
+#define peopleylong 8
+#define xlong 8
+
 
 //8*16 8*8
 //8*64
@@ -96,7 +101,16 @@ void TMR1_IRQHandler(void)
 		PC13 = 0;	
 	}*/
 	Clear(peoplex,peopley, 1);
-	peoplex += 1;
+	for(i=0; i<totalPlat; i++) {
+		if(peoplex == platx[i]+xlong && ( platy[i]<=peopley+peopleylong || peopley<platy[i]+platylong ) ) {	//whether on the plat
+			break;
+		}
+	}
+	if(i == totalPlat) {	//on the plat
+		peoplex += 1;
+	}else{								//not on the plat
+		peoplex -= 1;
+	}
 	//peopley -= 1;
 	for(i=0; i<totalPlat; i++) {
 		Clear(platx[i],platy[i], 2);
@@ -135,15 +149,22 @@ void Init_Timer1(void)
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(TIMER1);
 }
-int m,n;
-uint32_t u32ADCvalue;
+
+void OpenAll(void) {
+	OpenKeyPad();
+	init_LCD();
+  clear_LCD();
+}
+
+int m,n;//for
+int temp = 0, input;//scankey
+uint32_t u32ADCvalue;//seed
 char Text[32];
 int main(void)
 {
 	
   SYS_Init();
-	init_LCD();
-  clear_LCD();
+	OpenAll();
 
 	PD14 = 1;
 	Init_ADC();
@@ -169,6 +190,16 @@ int main(void)
 	
   while(1)
 	{
-		//while(tmep)
+		input = ScanKey();
+		if(input == 2) {	//people left
+			Clear(peoplex,peopley, 1);
+			peopley -= 8;
+			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
+		}else if(input == 8) {	//people right
+			Clear(peoplex,peopley, 1);
+			peopley +=8;
+			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
+		}
+		CLK_SysTickDelay(1000000);
 	}
 }

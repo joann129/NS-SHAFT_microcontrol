@@ -21935,8 +21935,18 @@ extern void draw_LCD(unsigned char *buffer);
 
 
 #line 11 "..\\main.c"
+#line 1 "..\\..\\..\\..\\Library\\Nu-LB-NUC140\\Include\\Scankey.h"
 
 
+
+void OpenKeyPad(void);
+void CloseKeyPad(void);
+uint8_t ScanKey(void);
+
+
+
+#line 12 "..\\main.c"
+#line 18 "..\\main.c"
 
 
 
@@ -22023,7 +22033,16 @@ void TMR1_IRQHandler(void)
 
  
 	Clear(peoplex,peopley, 1);
-	peoplex += 1;
+	for(i=0; i<7; i++) {
+		if(peoplex == platx[i]+8 && ( platy[i]<=peopley+8 || peopley<platy[i]+16 ) ) {	
+			break;
+		}
+	}
+	if(i == 7) {	
+		peoplex += 1;
+	}else{								
+		peoplex -= 1;
+	}
 	
 	for(i=0; i<7; i++) {
 		Clear(platx[i],platy[i], 2);
@@ -22062,15 +22081,22 @@ void Init_Timer1(void)
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)));
 }
+
+void OpenAll(void) {
+	OpenKeyPad();
+	init_LCD();
+  clear_LCD();
+}
+
 int m,n;
+int temp = 0, input;
 uint32_t u32ADCvalue;
 char Text[32];
 int main(void)
 {
 	
   SYS_Init();
-	init_LCD();
-  clear_LCD();
+	OpenAll();
 
 	(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(3))) + ((14)<<2)))) = 1;
 	Init_ADC();
@@ -22096,6 +22122,16 @@ int main(void)
 	
   while(1)
 	{
-		
+		input = ScanKey();
+		if(input == 2) {	
+			Clear(peoplex,peopley, 1);
+			peopley -= 8;
+			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
+		}else if(input == 8) {	
+			Clear(peoplex,peopley, 1);
+			peopley +=8;
+			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
+		}
+		CLK_SysTickDelay(1000000);
 	}
 }
