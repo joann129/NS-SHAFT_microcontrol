@@ -85,6 +85,13 @@ void clear_LCD(void)
 	lcdWriteData(0x0f);
 }
 
+void clearBuff(void) {
+	int16_t i,j;
+	for (j=0;j<LCD_Ymax;j++)
+	  for (i=0;i<LCD_Xmax;i++)
+	     DisplayBuffer[i+j/8*LCD_Xmax]=0;
+}
+
 void Clear(int16_t x, int16_t y,int ylong) {
 	int16_t i,j;
 	for (j=0;j<LCD_Ymax;j++)

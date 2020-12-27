@@ -15,15 +15,19 @@
 #define platylong 16
 #define peopleylong 8
 #define xlong 8
+uint32_t u32ADCvalue;//seed
 
 
 //8*16 8*8
 //8*64
-
-unsigned char people[8] = {
 //0x04, 0x18, 0x10, 0x52, 0x3c, 0x3e, 0x3e, 
 	//0x24, 0x18, 0x10, 0x7e, 0x18, 0x3c, 0x3c, 0x18
+unsigned char people[8] = {
 	0x00, 0x28, 0x10, 0x7c, 0x18, 0x3c, 0x3c, 0x18
+};
+
+unsigned char clearPeople[8] = {
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
 
 unsigned char plat[16] = {
@@ -72,17 +76,18 @@ void ADC_IRQHandler(void)
     u32Flag = ADC_GET_INT_FLAG(ADC, ADC_ADF_INT);
 	
     if(u32Flag & ADC_ADF_INT)
-        u8ADF = 1;
+				u32ADCvalue = ADC_GET_CONVERSION_DATA(ADC, 6);
 
     ADC_CLR_INT_FLAG(ADC, u32Flag);
 }
 
 void Init_ADC(void)
 {
-    ADC_Open(ADC, ADC_INPUT_MODE, ADC_OPERATION_MODE, ADC_CH_6_MASK);
-   ADC_POWER_ON(ADC);
+    ADC_Open(ADC, ADC_INPUT_MODE, ADC_OPERATION_MODE, ADC_CHANNEL_MASK);
+		ADC_POWER_ON(ADC);
     ADC_EnableInt(ADC, ADC_ADF_INT);
     NVIC_EnableIRQ(ADC_IRQn);
+		ADC_START_CONV(ADC);
 }
 
 void TMR1_IRQHandler(void)
@@ -102,12 +107,13 @@ void TMR1_IRQHandler(void)
 	}*/
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<totalPlat; i++) {
-		if(peoplex == platx[i]+xlong && ( platy[i]<=peopley+peopleylong && peopley<platy[i]+platylong ) ) {	//whether on the plat
+		if( ( peoplex==platx[i]+xlong || peoplex==platx[i]+xlong+1 || peoplex==platx[i]+xlong-1 )
+			&& ( platy[i]<peopley+peopleylong && peopley<platy[i]+platylong ) ) {	//whether on the plat
 			break;
 		}
 	}
 	if(i == totalPlat) {	//not on the plat
-		peoplex -= 1;
+		peoplex -= 2;
 	}else{								//on the plat
 		peoplex += 1;
 	}
@@ -144,7 +150,7 @@ void TMR1_IRQHandler(void)
 
 void Init_Timer1(void)
 {
-  TIMER_Open(TIMER1, TIMER_PERIODIC_MODE, 4);
+  TIMER_Open(TIMER1, TIMER_PERIODIC_MODE, 16);	//250000
   TIMER_EnableInt(TIMER1);
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(TIMER1);
@@ -158,7 +164,6 @@ void OpenAll(void) {
 
 int m,n;//for
 int temp = 0, input;//scankey
-uint32_t u32ADCvalue;//seed
 char Text[32];
 int main(void)
 {
@@ -169,12 +174,8 @@ int main(void)
 	PD14 = 1;
 	Init_ADC();
 
-	ADC_START_CONV(ADC);
-  while (u8ADF == 0);
-  u32ADCvalue = ADC_GET_CONVERSION_DATA(ADC, 6);
 	//sprintf(Text,"T = %5d", u32ADCvalue);
 	//print_Line(1, Text);
-	NVIC_DisableIRQ(ADC_IRQn);
 	srand(u32ADCvalue);
 	Init_Timer1();
 	for(m=0; m<totalPlat; m++) {
@@ -183,9 +184,9 @@ int main(void)
 	}
 	platy[3] = 24;;
 	draw_Bmp8x64(120,0,FG_COLOR,BG_COLOR,bigsting);
-	for(m=0; m<totalPlat; m++) {
+	/*for(m=0; m<totalPlat; m++) {	//have line on lcd
 		draw_Bmp8x16(platx[m],platy[m],FG_COLOR,BG_COLOR,platSting[platType[m]]);
-	}
+	}*/
 	draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 	
   while(1)
@@ -194,12 +195,14 @@ int main(void)
 		if(input == 2) {	//people left
 			Clear(peoplex,peopley, 1);
 			peopley -= 8;
+			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 		}else if(input == 8) {	//people right
 			Clear(peoplex,peopley, 1);
 			peopley +=8;
+			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 		}
-		CLK_SysTickDelay(1000000);
+		CLK_SysTickDelay(100000);
 	}
 }

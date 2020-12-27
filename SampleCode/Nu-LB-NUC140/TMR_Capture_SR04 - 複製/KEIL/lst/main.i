@@ -21947,15 +21947,19 @@ uint8_t ScanKey(void);
 
 #line 12 "..\\main.c"
 #line 18 "..\\main.c"
+uint32_t u32ADCvalue;
 
 
 
 
-
-unsigned char people[8] = {
 
 	
+unsigned char people[8] = {
 	0x00, 0x28, 0x10, 0x7c, 0x18, 0x3c, 0x3c, 0x18
+};
+
+unsigned char clearPeople[8] = {
+	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
 
 unsigned char plat[16] = {
@@ -22004,7 +22008,7 @@ void ADC_IRQHandler(void)
     u32Flag = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADSR & (((1ul << 0))));
 	
     if(u32Flag & ((1ul << 0)))
-        u8ADF = 1;
+				u32ADCvalue = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(6)] & (0xFFFFul << 0));
 
     ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADSR = (u32Flag));
 }
@@ -22012,9 +22016,10 @@ void ADC_IRQHandler(void)
 void Init_ADC(void)
 {
     ADC_Open(((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)), (0UL<<10), (2UL<<2), (1UL << 6));
-   ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 0));
+		((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 0));
     ADC_EnableInt(((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)), ((1ul << 0)));
     NVIC_EnableIRQ(ADC_IRQn);
+		((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 11));
 }
 
 void TMR1_IRQHandler(void)
@@ -22034,12 +22039,13 @@ void TMR1_IRQHandler(void)
  
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<7; i++) {
-		if(peoplex == platx[i]+8 && ( platy[i]<=peopley+8 && peopley<platy[i]+16 ) ) {	
+		if( ( peoplex==platx[i]+8 || peoplex==platx[i]+8+1 || peoplex==platx[i]+8-1 )
+			&& ( platy[i]<peopley+8 && peopley<platy[i]+16 ) ) {	
 			break;
 		}
 	}
 	if(i == 7) {	
-		peoplex -= 1;
+		peoplex -= 2;
 	}else{								
 		peoplex += 1;
 	}
@@ -22076,7 +22082,7 @@ void TMR1_IRQHandler(void)
 
 void Init_Timer1(void)
 {
-  TIMER_Open(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)), (1UL << 27), 4);
+  TIMER_Open(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)), (1UL << 27), 16);	
   TIMER_EnableInt(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)));
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)));
@@ -22090,7 +22096,6 @@ void OpenAll(void) {
 
 int m,n;
 int temp = 0, input;
-uint32_t u32ADCvalue;
 char Text[32];
 int main(void)
 {
@@ -22101,12 +22106,8 @@ int main(void)
 	(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(3))) + ((14)<<2)))) = 1;
 	Init_ADC();
 
-	((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 11));
-  while (u8ADF == 0);
-  u32ADCvalue = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(6)] & (0xFFFFul << 0));
 	
 	
-	NVIC_DisableIRQ(ADC_IRQn);
 	srand(u32ADCvalue);
 	Init_Timer1();
 	for(m=0; m<7; m++) {
@@ -22115,9 +22116,9 @@ int main(void)
 	}
 	platy[3] = 24;;
 	draw_Bmp8x64(120,0,0xFFFF,0x0000,bigsting);
-	for(m=0; m<7; m++) {
-		draw_Bmp8x16(platx[m],platy[m],0xFFFF,0x0000,platSting[platType[m]]);
-	}
+	
+
+ 
 	draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 	
   while(1)
@@ -22126,12 +22127,14 @@ int main(void)
 		if(input == 2) {	
 			Clear(peoplex,peopley, 1);
 			peopley -= 8;
+			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 		}else if(input == 8) {	
 			Clear(peoplex,peopley, 1);
 			peopley +=8;
+			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 		}
-		CLK_SysTickDelay(1000000);
+		CLK_SysTickDelay(100000);
 	}
 }
