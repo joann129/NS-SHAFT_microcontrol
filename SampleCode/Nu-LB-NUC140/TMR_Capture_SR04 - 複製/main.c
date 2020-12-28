@@ -45,8 +45,7 @@ unsigned char bigsting[64] = {
 0x00, 0x83, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x07, 0x1f, 0x3f, 0x3f, 0x7f, 0x7f, 0x3f, 0x00
 };
 
-unsigned char platSting[5][16] = 
-{
+unsigned char platSting[5][16] = {
 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x00,
 0x00, 0xff, 0xff, 0xff, 0xff, 0x5a, 0x42, 0x00, 0x00, 0x7f, 0x7f, 0x7f, 0x7f, 0x6b, 0x6a, 0x00,
 0x00, 0xff, 0xff, 0xff, 0xff, 0x5a, 0x42, 0x00, 0x00, 0x7f, 0x7f, 0x7f, 0x7f, 0x6b, 0x6a, 0x00,
@@ -63,12 +62,40 @@ int16_t peopley = 24;
 int16_t platx[totalPlat] = {96,80,64,48,32,16,0};
 int16_t platy[totalPlat] = {0,0,0,24,0,0,0};//47
 int platType[totalPlat] = {0,0,0,0,0,0,0};
-
+int score=0, live=4, flag=0;
 uint8_t ledState = 0;
 uint32_t keyin = 0;
 
 volatile uint8_t u8ADF;
 volatile uint16_t X, Y;
+void life(int num){
+	if(num == 4){
+		PC12=0;
+		PC13=0;
+		PC14=0;
+		PC15=0;
+	}else if(num == 3){
+		PC12=1;
+		PC13=0;
+		PC14=0;
+		PC15=0;
+	}else if(num == 2){
+		PC12=1;
+		PC13=1;
+		PC14=0;
+		PC15=0;
+	}else if(num == 1){
+		PC12=1;
+		PC13=1;
+		PC14=1;
+		PC15=0;
+	}else if(num == 0){
+		PC12=1;
+		PC13=1;
+		PC14=1;
+		PC15=1;
+	}
+}
 void ADC_IRQHandler(void)
 {
     uint32_t u32Flag;
@@ -81,7 +108,6 @@ void ADC_IRQHandler(void)
 				Y = ADC_GET_CONVERSION_DATA(ADC, 1);
 		}
     ADC_CLR_INT_FLAG(ADC, u32Flag);
-
 }
 
 void Init_ADC(void)
@@ -92,12 +118,13 @@ void Init_ADC(void)
     NVIC_EnableIRQ(ADC_IRQn);
 		ADC_START_CONV(ADC);
 }
-
+void TMR2_IRQHandler(void){
+	//socre++;
+}
 void TMR1_IRQHandler(void)
 {	
 	int i, j;
-	ledState = ~ ledState;  // changing ON/OFF state
-	
+	life(live);
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<totalPlat; i++) {
 		if( ( peoplex==platx[i]+xlong || peoplex==platx[i]+xlong+1 || peoplex==platx[i]+xlong-1 )
@@ -105,10 +132,23 @@ void TMR1_IRQHandler(void)
 			break;
 		}
 	}
+	//people move
 	if(i == totalPlat) {	//not on the plat
 		peoplex -= 2;
+		flag = 0;
 	}else{								//on the plat
 		peoplex += 1;
+		if(platType[i]==1 || platType[i]==2){
+			if(flag==0){
+				flag=1;
+				live--;
+				life(live);
+			}
+		}else{
+			if(flag==1){
+			flag=0;
+			}
+		}
 	}
 	//peopley -= 1;
 	for(i=0; i<totalPlat; i++) { // plate move up
@@ -152,16 +192,18 @@ void Init_Timer1(void)
 void OpenAll(void) {
 	OpenKeyPad();
 	GPIO_SetMode(PD, BIT14, GPIO_MODE_OUTPUT);
+	GPIO_SetMode(PC, BIT12, GPIO_MODE_OUTPUT);
+		GPIO_SetMode(PC, BIT13, GPIO_MODE_OUTPUT);
+		GPIO_SetMode(PC, BIT14, GPIO_MODE_OUTPUT);
+		GPIO_SetMode(PC, BIT15, GPIO_MODE_OUTPUT);
 	init_LCD();
   clear_LCD();
 }
 
 int m,n;//for
-int temp = 0, input;//scankey
 char Text[32];
 char Text0[16];
 char Text1[16];
-char Text2[16];
 int main(void)
 {
 	

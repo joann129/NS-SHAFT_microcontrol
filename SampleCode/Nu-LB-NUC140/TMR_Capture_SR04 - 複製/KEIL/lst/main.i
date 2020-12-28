@@ -21977,8 +21977,7 @@ unsigned char bigsting[64] = {
 0x00, 0x83, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x07, 0x1f, 0x3f, 0x3f, 0x7f, 0x7f, 0x3f, 0x00
 };
 
-unsigned char platSting[5][16] = 
-{
+unsigned char platSting[5][16] = {
 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x00,
 0x00, 0xff, 0xff, 0xff, 0xff, 0x5a, 0x42, 0x00, 0x00, 0x7f, 0x7f, 0x7f, 0x7f, 0x6b, 0x6a, 0x00,
 0x00, 0xff, 0xff, 0xff, 0xff, 0x5a, 0x42, 0x00, 0x00, 0x7f, 0x7f, 0x7f, 0x7f, 0x6b, 0x6a, 0x00,
@@ -21995,12 +21994,40 @@ int16_t peopley = 24;
 int16_t platx[7] = {96,80,64,48,32,16,0};
 int16_t platy[7] = {0,0,0,24,0,0,0};
 int platType[7] = {0,0,0,0,0,0,0};
-
+int score=0, live=4, flag=0;
 uint8_t ledState = 0;
 uint32_t keyin = 0;
 
 volatile uint8_t u8ADF;
 volatile uint16_t X, Y;
+void life(int num){
+	if(num == 4){
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((12)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=0;
+	}else if(num == 3){
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((12)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=0;
+	}else if(num == 2){
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((12)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=0;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=0;
+	}else if(num == 1){
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((12)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=0;
+	}else if(num == 0){
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((12)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=1;
+		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=1;
+	}
+}
 void ADC_IRQHandler(void)
 {
     uint32_t u32Flag;
@@ -22013,7 +22040,6 @@ void ADC_IRQHandler(void)
 				Y = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(1)] & (0xFFFFul << 0));
 		}
     ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADSR = (u32Flag));
-
 }
 
 void Init_ADC(void)
@@ -22024,12 +22050,13 @@ void Init_ADC(void)
     NVIC_EnableIRQ(ADC_IRQn);
 		((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 11));
 }
-
+void TMR2_IRQHandler(void){
+	
+}
 void TMR1_IRQHandler(void)
 {	
 	int i, j;
-	ledState = ~ ledState;  
-	
+	life(live);
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<7; i++) {
 		if( ( peoplex==platx[i]+8 || peoplex==platx[i]+8+1 || peoplex==platx[i]+8-1 )
@@ -22037,10 +22064,23 @@ void TMR1_IRQHandler(void)
 			break;
 		}
 	}
+	
 	if(i == 7) {	
 		peoplex -= 2;
+		flag = 0;
 	}else{								
 		peoplex += 1;
+		if(platType[i]==1 || platType[i]==2){
+			if(flag==0){
+				flag=1;
+				live--;
+				life(live);
+			}
+		}else{
+			if(flag==1){
+			flag=0;
+			}
+		}
 	}
 	
 	for(i=0; i<7; i++) { 
@@ -22084,16 +22124,18 @@ void Init_Timer1(void)
 void OpenAll(void) {
 	OpenKeyPad();
 	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x00C0)), 0x00004000, 0x1UL);
+	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00001000, 0x1UL);
+		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00002000, 0x1UL);
+		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00004000, 0x1UL);
+		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00008000, 0x1UL);
 	init_LCD();
   clear_LCD();
 }
 
 int m,n;
-int temp = 0, input;
 char Text[32];
 char Text0[16];
 char Text1[16];
-char Text2[16];
 int main(void)
 {
 	
