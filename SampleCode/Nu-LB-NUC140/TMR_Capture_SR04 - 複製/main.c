@@ -68,17 +68,20 @@ uint8_t ledState = 0;
 uint32_t keyin = 0;
 
 volatile uint8_t u8ADF;
-
+volatile uint16_t X, Y;
 void ADC_IRQHandler(void)
 {
     uint32_t u32Flag;
 
     u32Flag = ADC_GET_INT_FLAG(ADC, ADC_ADF_INT);
 	
-    if(u32Flag & ADC_ADF_INT)
+    if(u32Flag & ADC_ADF_INT){
 				u32ADCvalue = ADC_GET_CONVERSION_DATA(ADC, 6);
-
+				X = ADC_GET_CONVERSION_DATA(ADC, 0);
+				Y = ADC_GET_CONVERSION_DATA(ADC, 1);
+		}
     ADC_CLR_INT_FLAG(ADC, u32Flag);
+
 }
 
 void Init_ADC(void)
@@ -94,17 +97,7 @@ void TMR1_IRQHandler(void)
 {	
 	int i, j;
 	ledState = ~ ledState;  // changing ON/OFF state
-	//print_Line(2,"gan");
-  /*if(ledState)
-	{
-		PC12 = 0;	
-		PC13 = 1;	
-	} 
-  else	
-	{
-		PC12 = 1;	
-		PC13 = 0;	
-	}*/
+	
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<totalPlat; i++) {
 		if( ( peoplex==platx[i]+xlong || peoplex==platx[i]+xlong+1 || peoplex==platx[i]+xlong-1 )
@@ -118,7 +111,7 @@ void TMR1_IRQHandler(void)
 		peoplex += 1;
 	}
 	//peopley -= 1;
-	for(i=0; i<totalPlat; i++) {
+	for(i=0; i<totalPlat; i++) { // plate move up
 		Clear(platx[i],platy[i], 2);
 		platx[i] += 1;
 	}
@@ -131,7 +124,7 @@ void TMR1_IRQHandler(void)
 		
 	//}
 	
-	if(platx[0]==104) {
+	if(platx[0]==104) { //plate disappear
 			Clear(platx[0],platy[0], 2);
 			for(i=0; i<totalPlat-1; i++) {
 				platy[i] = platy[i+1];
@@ -139,7 +132,7 @@ void TMR1_IRQHandler(void)
 				platType[i] = platType[i+1];
 			}
 	}		
-	if(platx[5]==16) {
+	if(platx[5]==16) {  //add plate
 			platy[6] = (rand() % yseed) * ylong;
 			platx[6] = 0;
 			platType[6] = rand() % 5;
@@ -158,6 +151,7 @@ void Init_Timer1(void)
 
 void OpenAll(void) {
 	OpenKeyPad();
+	GPIO_SetMode(PD, BIT14, GPIO_MODE_OUTPUT);
 	init_LCD();
   clear_LCD();
 }
@@ -165,15 +159,25 @@ void OpenAll(void) {
 int m,n;//for
 int temp = 0, input;//scankey
 char Text[32];
+char Text0[16];
+char Text1[16];
+char Text2[16];
 int main(void)
 {
 	
   SYS_Init();
 	OpenAll();
 
-	PD14 = 1;
+	PD14 = 0;
 	Init_ADC();
-
+	
+	//Y<2000 left ;  Y>3500 right
+	/*while(1){
+	sprintf(Text0, "%d", X);
+	    sprintf(Text1, "%d", Y);
+	    print_Line(1, Text0);
+	    print_Line(2, Text1);
+	}*/
 	//sprintf(Text,"T = %5d", u32ADCvalue);
 	//print_Line(1, Text);
 	srand(u32ADCvalue);
@@ -184,25 +188,24 @@ int main(void)
 	}
 	platy[3] = 24;;
 	draw_Bmp8x64(120,0,FG_COLOR,BG_COLOR,bigsting);
-	/*for(m=0; m<totalPlat; m++) {	//have line on lcd
-		draw_Bmp8x16(platx[m],platy[m],FG_COLOR,BG_COLOR,platSting[platType[m]]);
-	}*/
+	
 	draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 	
   while(1)
 	{
-		input = ScanKey();
-		if(input == 2) {	//people left
+		
+		if(Y<2000) {	//people left
 			Clear(peoplex,peopley, 1);
 			peopley -= 8;
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
-		}else if(input == 8) {	//people right
+		}else if(Y > 3500) {	//people right
 			Clear(peoplex,peopley, 1);
 			peopley +=8;
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 		}
-		CLK_SysTickDelay(100000);
+		CLK_SysTickDelay(1000000);
 	}
+
 }

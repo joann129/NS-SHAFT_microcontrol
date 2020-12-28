@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\TIMER_Capture.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\TIMER_Capture.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Dec 27 09:28:35 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 28 13:27:53 2020
 <BR><P>
 <H3>Maximum Stack Usage =        100 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -72,7 +72,7 @@ Global Symbols
 <P><STRONG><a name="[29]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry.o(.ARM.Collect$$$$00000000))
 <BR>[Address Reference Count : 1]<UL><LI> startup_nuc100series.o(.text)
 </UL>
-<P><STRONG><a name="[60]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[5f]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[2c]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
@@ -82,15 +82,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[61]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[60]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[62]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[61]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[63]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[62]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[64]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[63]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[65]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[64]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
 <P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, retarget.o(.emb_text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_nuc100series.o(RESET)
@@ -216,7 +216,7 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>WDT_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_nuc100series.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_nuc100series.o(RESET)
 </UL>
-<P><STRONG><a name="[66]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<P><STRONG><a name="[65]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[2f]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_uidivmod
@@ -229,7 +229,7 @@ Global Symbols
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Open
 </UL>
 
-<P><STRONG><a name="[67]"></a>__aeabi_idiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, idiv.o(.text), UNUSED)
+<P><STRONG><a name="[66]"></a>__aeabi_idiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, idiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[2e]"></a>__aeabi_idivmod</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, idiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = __aeabi_idivmod &rArr; __aeabi_uidivmod
@@ -249,13 +249,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[68]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[67]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[52]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER_GetModuleClock
 </UL>
 
-<P><STRONG><a name="[69]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[68]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[30]"></a>__aeabi_uldivmod</STRONG> (Thumb, 96 bytes, Stack size 48 bytes, uldiv.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
@@ -270,25 +270,25 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[6a]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[69]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
 <P><STRONG><a name="[32]"></a>__aeabi_llsl</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[6b]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[6a]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[31]"></a>__aeabi_llsr</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[6c]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
+<P><STRONG><a name="[6b]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
 
 <P><STRONG><a name="[42]"></a>ADC_EnableInt</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, adc.o(i.ADC_EnableInt))
 <BR><BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC
 </UL>
 
-<P><STRONG><a name="[23]"></a>ADC_IRQHandler</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(i.ADC_IRQHandler))
+<P><STRONG><a name="[23]"></a>ADC_IRQHandler</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, main.o(i.ADC_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_nuc100series.o(RESET)
 </UL>
 <P><STRONG><a name="[41]"></a>ADC_Open</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, adc.o(i.ADC_Open))
@@ -364,10 +364,11 @@ Global Symbols
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TMR1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[49]"></a>GPIO_SetMode</STRONG> (Thumb, 40 bytes, Stack size 20 bytes, gpio.o(i.GPIO_SetMode))
+<P><STRONG><a name="[47]"></a>GPIO_SetMode</STRONG> (Thumb, 40 bytes, Stack size 20 bytes, gpio.o(i.GPIO_SetMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_SetMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenKeyPad
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenAll
 </UL>
 
 <P><STRONG><a name="[27]"></a>Hard_Fault_Handler</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, retarget.o(i.Hard_Fault_Handler))
@@ -395,11 +396,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[45]"></a>OpenAll</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, main.o(i.OpenAll))
+<P><STRONG><a name="[45]"></a>OpenAll</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, main.o(i.OpenAll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = OpenAll &rArr; init_LCD &rArr; init_SPI3 &rArr; SPI_Open &rArr; CLK_GetHCLKFreq &rArr; SystemCoreClockUpdate &rArr; __aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
-<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
+<BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetMode
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenKeyPad
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -408,7 +410,7 @@ Global Symbols
 <P><STRONG><a name="[46]"></a>OpenKeyPad</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, scankey.o(i.OpenKeyPad))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = OpenKeyPad &rArr; GPIO_SetMode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetMode
+<BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenAll
 </UL>
@@ -437,10 +439,6 @@ Global Symbols
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLK_EnableModuleClock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[5e]"></a>ScanKey</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, scankey.o(i.ScanKey))
-<BR><BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[4f]"></a>SendChar</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, retarget.o(i.SendChar))
@@ -495,7 +493,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[6d]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
+<P><STRONG><a name="[6c]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
 
 <P><STRONG><a name="[3e]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
@@ -504,19 +502,19 @@ Global Symbols
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stackDump
 </UL>
 
-<P><STRONG><a name="[6e]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[6d]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[6f]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[6e]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[70]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[6f]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[5f]"></a>clearBuff</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, lcd.o(i.clearBuff))
+<P><STRONG><a name="[5e]"></a>clearBuff</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, lcd.o(i.clearBuff))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = clearBuff
 </UL>
 <BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[48]"></a>clear_LCD</STRONG> (Thumb, 78 bytes, Stack size 12 bytes, lcd.o(i.clear_LCD))
+<P><STRONG><a name="[49]"></a>clear_LCD</STRONG> (Thumb, 78 bytes, Stack size 12 bytes, lcd.o(i.clear_LCD))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = clear_LCD &rArr; lcdSetAddr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdWriteData
@@ -568,7 +566,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printf5.o(i.__0printf$5)
 </UL>
-<P><STRONG><a name="[47]"></a>init_LCD</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, lcd.o(i.init_LCD))
+<P><STRONG><a name="[48]"></a>init_LCD</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, lcd.o(i.init_LCD))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = init_LCD &rArr; init_SPI3 &rArr; SPI_Open &rArr; CLK_GetHCLKFreq &rArr; SystemCoreClockUpdate &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdWriteCommand
@@ -583,24 +581,24 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Open
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_DisableAutoSS
 </UL>
-<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
 </UL>
 
 <P><STRONG><a name="[3c]"></a>lcdSetAddr</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, lcd.o(i.lcdSetAddr))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = lcdSetAddr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_Pixel
-<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clear
 </UL>
 
 <P><STRONG><a name="[5b]"></a>lcdWriteCommand</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, lcd.o(i.lcdWriteCommand))
-<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
+<BR><BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LCD
 </UL>
 
 <P><STRONG><a name="[3d]"></a>lcdWriteData</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lcd.o(i.lcdWriteData))
 <BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_Pixel
-<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_LCD
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clear
 </UL>
 
@@ -612,8 +610,7 @@ Global Symbols
 <LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_Bmp8x8
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_Bmp8x64
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearBuff
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScanKey
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearBuff
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Init
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clear
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenAll

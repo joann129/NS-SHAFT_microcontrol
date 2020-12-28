@@ -22000,22 +22000,25 @@ uint8_t ledState = 0;
 uint32_t keyin = 0;
 
 volatile uint8_t u8ADF;
-
+volatile uint16_t X, Y;
 void ADC_IRQHandler(void)
 {
     uint32_t u32Flag;
 
     u32Flag = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADSR & (((1ul << 0))));
 	
-    if(u32Flag & ((1ul << 0)))
+    if(u32Flag & ((1ul << 0))){
 				u32ADCvalue = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(6)] & (0xFFFFul << 0));
-
+				X = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(0)] & (0xFFFFul << 0));
+				Y = ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADDR[(1)] & (0xFFFFul << 0));
+		}
     ((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADSR = (u32Flag));
+
 }
 
 void Init_ADC(void)
 {
-    ADC_Open(((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)), (0UL<<10), (2UL<<2), (1UL << 6));
+    ADC_Open(((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)), (0UL<<10), (3UL<<2), (1UL << 6) | (1UL << 0) | (1UL << 1));
 		((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 0));
     ADC_EnableInt(((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)), ((1ul << 0)));
     NVIC_EnableIRQ(ADC_IRQn);
@@ -22027,16 +22030,6 @@ void TMR1_IRQHandler(void)
 	int i, j;
 	ledState = ~ ledState;  
 	
-  
-
-
-
-
-
-
-
-
- 
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<7; i++) {
 		if( ( peoplex==platx[i]+8 || peoplex==platx[i]+8+1 || peoplex==platx[i]+8-1 )
@@ -22050,7 +22043,7 @@ void TMR1_IRQHandler(void)
 		peoplex += 1;
 	}
 	
-	for(i=0; i<7; i++) {
+	for(i=0; i<7; i++) { 
 		Clear(platx[i],platy[i], 2);
 		platx[i] += 1;
 	}
@@ -22063,7 +22056,7 @@ void TMR1_IRQHandler(void)
 		
 	
 	
-	if(platx[0]==104) {
+	if(platx[0]==104) { 
 			Clear(platx[0],platy[0], 2);
 			for(i=0; i<7-1; i++) {
 				platy[i] = platy[i+1];
@@ -22071,7 +22064,7 @@ void TMR1_IRQHandler(void)
 				platType[i] = platType[i+1];
 			}
 	}		
-	if(platx[5]==16) {
+	if(platx[5]==16) {  
 			platy[6] = (rand() % 7) * 8;
 			platx[6] = 0;
 			platType[6] = rand() % 5;
@@ -22090,6 +22083,7 @@ void Init_Timer1(void)
 
 void OpenAll(void) {
 	OpenKeyPad();
+	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x00C0)), 0x00004000, 0x1UL);
 	init_LCD();
   clear_LCD();
 }
@@ -22097,15 +22091,25 @@ void OpenAll(void) {
 int m,n;
 int temp = 0, input;
 char Text[32];
+char Text0[16];
+char Text1[16];
+char Text2[16];
 int main(void)
 {
 	
   SYS_Init();
 	OpenAll();
 
-	(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(3))) + ((14)<<2)))) = 1;
+	(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(3))) + ((14)<<2)))) = 0;
 	Init_ADC();
+	
+	
+	
 
+
+
+
+ 
 	
 	
 	srand(u32ADCvalue);
@@ -22117,24 +22121,23 @@ int main(void)
 	platy[3] = 24;;
 	draw_Bmp8x64(120,0,0xFFFF,0x0000,bigsting);
 	
-
- 
 	draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 	
   while(1)
 	{
-		input = ScanKey();
-		if(input == 2) {	
+		
+		if(Y<2000) {	
 			Clear(peoplex,peopley, 1);
 			peopley -= 8;
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
-		}else if(input == 8) {	
+		}else if(Y > 3500) {	
 			Clear(peoplex,peopley, 1);
 			peopley +=8;
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 		}
-		CLK_SysTickDelay(100000);
+		CLK_SysTickDelay(1000000);
 	}
+
 }
