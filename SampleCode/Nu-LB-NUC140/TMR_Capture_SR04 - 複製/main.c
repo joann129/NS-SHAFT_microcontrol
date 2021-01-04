@@ -9,6 +9,7 @@
 #include <string.h>
 #include "LCD.h"
 #include "Scankey.h"
+#include "Seven_Segment.h"
 #define yseed 7
 #define totalPlat 7
 #define ylong 8
@@ -57,14 +58,16 @@ unsigned char platSting[5][16] = {
 int16_t peopley = 32;
 int16_t platx[3] = {0,47,0};
 int16_t platy[3] = {24,40,56};*/
+int i, j;
 int16_t peoplex = 56;
 int16_t peopley = 24;
 int16_t platx[totalPlat] = {96,80,64,48,32,16,0};
 int16_t platy[totalPlat] = {0,0,0,24,0,0,0};//47
 int platType[totalPlat] = {0,0,0,0,0,0,0};
-int score=0, live=4, flag=0;
+int score=1, cnt=1, live=4, flag=0;
 uint8_t ledState = 0;
 uint32_t keyin = 0;
+int input; //Scankey test
 
 volatile uint8_t u8ADF;
 volatile uint16_t X, Y;
@@ -123,7 +126,7 @@ void TMR2_IRQHandler(void){
 }
 void TMR1_IRQHandler(void)
 {	
-	int i, j;
+	char str[10],line[50];
 	life(live);
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<totalPlat; i++) {
@@ -171,11 +174,20 @@ void TMR1_IRQHandler(void)
 				platx[i] = platx[i+1];
 				platType[i] = platType[i+1];
 			}
+			cnt++;
+			if(cnt%7==0) score++;
+			strcpy(line,"Floor -");
+			sprintf(str,"%d",score);
+			printS_5x7(0,0,line);
+			printS_5x7(35,0,str);
 	}		
 	if(platx[5]==16) {  //add plate
 			platy[6] = (rand() % yseed) * ylong;
 			platx[6] = 0;
 			platType[6] = rand() % 5;
+			
+			
+			
 	}
 	
 	TIMER_ClearIntFlag(TIMER1); // Clear Timer1 time-out interrupt flag
@@ -198,6 +210,7 @@ void OpenAll(void) {
 		GPIO_SetMode(PC, BIT15, GPIO_MODE_OUTPUT);
 	init_LCD();
   clear_LCD();
+	OpenSevenSegment();
 }
 
 int m,n;//for
@@ -206,7 +219,7 @@ char Text0[16];
 char Text1[16];
 int main(void)
 {
-	
+	int stop=0;
   SYS_Init();
 	OpenAll();
 
@@ -235,18 +248,25 @@ int main(void)
 	
   while(1)
 	{
-		
+		//input = ScanKey();	//ScanKey test
+		//if(input == 2) {	//Scankey test
 		if(Y<2000) {	//people left
 			Clear(peoplex,peopley, 1);
-			peopley -= 8;
+			if(peopley!=0) {
+				peopley -= 8;
+			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
-		}else if(Y > 3500) {	//people right
+		}//else if(input == 8) {	//Scankey test
+		else if(Y > 3500) {	//people right
 			Clear(peoplex,peopley, 1);
-			peopley +=8;
+			if(peopley<56) {
+				peopley += 8;
+			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 		}
+		
 		CLK_SysTickDelay(1000000);
 	}
 

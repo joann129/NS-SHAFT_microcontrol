@@ -21946,7 +21946,15 @@ uint8_t ScanKey(void);
 
 
 #line 12 "..\\main.c"
-#line 18 "..\\main.c"
+#line 1 "..\\..\\..\\..\\Library\\Nu-LB-NUC140\\Include\\Seven_Segment.h"
+
+
+
+extern void OpenSevenSegment(void);
+extern void ShowSevenSegment(uint8_t no, uint8_t number);
+extern void CloseSevenSegment(void);
+#line 13 "..\\main.c"
+#line 19 "..\\main.c"
 uint32_t u32ADCvalue;
 
 
@@ -21989,14 +21997,16 @@ unsigned char platSting[5][16] = {
 
 
  
+int i, j;
 int16_t peoplex = 56;
 int16_t peopley = 24;
 int16_t platx[7] = {96,80,64,48,32,16,0};
 int16_t platy[7] = {0,0,0,24,0,0,0};
 int platType[7] = {0,0,0,0,0,0,0};
-int score=0, live=4, flag=0;
+int score=1, cnt=1, live=4, flag=0;
 uint8_t ledState = 0;
 uint32_t keyin = 0;
+int input; 
 
 volatile uint8_t u8ADF;
 volatile uint16_t X, Y;
@@ -22055,7 +22065,7 @@ void TMR2_IRQHandler(void){
 }
 void TMR1_IRQHandler(void)
 {	
-	int i, j;
+	char str[10],line[50];
 	life(live);
 	Clear(peoplex,peopley, 1);
 	for(i=0; i<7; i++) {
@@ -22103,11 +22113,20 @@ void TMR1_IRQHandler(void)
 				platx[i] = platx[i+1];
 				platType[i] = platType[i+1];
 			}
+			cnt++;
+			if(cnt%7==0) score++;
+			strcpy(line,"Floor -");
+			sprintf(str,"%d",score);
+			printS_5x7(0,0,line);
+			printS_5x7(35,0,str);
 	}		
 	if(platx[5]==16) {  
 			platy[6] = (rand() % 7) * 8;
 			platx[6] = 0;
 			platType[6] = rand() % 5;
+			
+			
+			
 	}
 	
 	TIMER_ClearIntFlag(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020))); 
@@ -22130,6 +22149,7 @@ void OpenAll(void) {
 		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00008000, 0x1UL);
 	init_LCD();
   clear_LCD();
+	OpenSevenSegment();
 }
 
 int m,n;
@@ -22138,7 +22158,7 @@ char Text0[16];
 char Text1[16];
 int main(void)
 {
-	
+	int stop=0;
   SYS_Init();
 	OpenAll();
 
@@ -22168,17 +22188,24 @@ int main(void)
   while(1)
 	{
 		
+		
 		if(Y<2000) {	
 			Clear(peoplex,peopley, 1);
-			peopley -= 8;
-			clearBuff();
-			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
-		}else if(Y > 3500) {	
-			Clear(peoplex,peopley, 1);
-			peopley +=8;
+			if(peopley!=0) {
+				peopley -= 8;
+			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 		}
+		else if(Y > 3500) {	
+			Clear(peoplex,peopley, 1);
+			if(peopley<56) {
+				peopley += 8;
+			}
+			clearBuff();
+			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
+		}
+		
 		CLK_SysTickDelay(1000000);
 	}
 
