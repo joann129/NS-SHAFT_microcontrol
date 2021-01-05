@@ -22190,18 +22190,18 @@ int main(void)
 		if(GG == 1){
 			break;
 		}
-		input = ScanKey();	
-		if(input == 2) {	
 		
 		
+		
+		if(Y<2000) {	
 			Clear(peoplex,peopley, 1);
 			if(peopley!=0) {
 				peopley -= 8;
 			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
-		}else if(input == 8) {	
-		
+		}
+		else if(Y > 3500) {	
 			Clear(peoplex,peopley, 1);
 			if(peopley<56) {
 				peopley += 8;

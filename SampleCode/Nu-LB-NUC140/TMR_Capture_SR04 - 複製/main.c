@@ -251,18 +251,18 @@ int main(void)
 		if(GG == 1){
 			break;
 		}
-		input = ScanKey();	//ScanKey test
-		if(input == 2) {	//Scankey test
 		
-		//if(Y<2000) {	//people left
+		//input = ScanKey();	//ScanKey test
+		//if(input == 2) {	//Scankey test
+		if(Y<2000) {	//people left
 			Clear(peoplex,peopley, 1);
 			if(peopley!=0) {
 				peopley -= 8;
 			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
-		}else if(input == 8) {	//Scankey test
-		//else if(Y > 3500) {	//people right
+		}//else if(input == 8) {	//Scankey test
+		else if(Y > 3500) {	//people right
 			Clear(peoplex,peopley, 1);
 			if(peopley<56) {
 				peopley += 8;
