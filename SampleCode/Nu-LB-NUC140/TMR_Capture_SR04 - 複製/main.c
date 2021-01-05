@@ -64,7 +64,11 @@ int16_t peopley = 24;
 int16_t platx[totalPlat] = {96,80,64,48,32,16,0};
 int16_t platy[totalPlat] = {0,0,0,24,0,0,0};//47
 int platType[totalPlat] = {0,0,0,0,0,0,0};
+<<<<<<< Updated upstream
 int score=1, cnt=1, live=4, flag=0;
+=======
+int score=0, live=4, flag=0, GG=0;
+>>>>>>> Stashed changes
 uint8_t ledState = 0;
 uint32_t keyin = 0;
 int input; //Scankey test
@@ -97,6 +101,10 @@ void life(int num){
 		PC13=1;
 		PC14=1;
 		PC15=1;
+		
+		GG = 1;
+		TIMER_Close(TIMER1);
+		
 	}
 }
 void ADC_IRQHandler(void)
@@ -122,7 +130,22 @@ void Init_ADC(void)
 		ADC_START_CONV(ADC);
 }
 void TMR2_IRQHandler(void){
-	//socre++;
+	int i;
+	for(i=0;i<100;i++){
+		CloseSevenSegment();
+		ShowSevenSegment(3,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(2,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(1,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(0,0);
+		CLK_SysTickDelay(100);
+	}
+	//TIMER_ClearIntFlag(TIMER2);
 }
 void TMR1_IRQHandler(void)
 {	
@@ -135,13 +158,18 @@ void TMR1_IRQHandler(void)
 			break;
 		}
 	}
+	//
+	if(peoplex+8 == 110){
+		live--;
+		life(live);
+	}
 	//people move
 	if(i == totalPlat) {	//not on the plat
 		peoplex -= 2;
 		flag = 0;
 	}else{								//on the plat
 		peoplex += 1;
-		if(platType[i]==1 || platType[i]==2){
+		if(platType[i]==1 || platType[i]==2 ){
 			if(flag==0){
 				flag=1;
 				live--;
@@ -149,7 +177,7 @@ void TMR1_IRQHandler(void)
 			}
 		}else{
 			if(flag==1){
-			flag=0;
+				flag=0;
 			}
 		}
 	}
@@ -189,7 +217,6 @@ void TMR1_IRQHandler(void)
 			
 			
 	}
-	
 	TIMER_ClearIntFlag(TIMER1); // Clear Timer1 time-out interrupt flag
 }
 
@@ -200,14 +227,21 @@ void Init_Timer1(void)
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(TIMER1);
 }
-
+void Init_Timer2(void)
+{
+  TIMER_Open(TIMER2, TIMER_PERIODIC_MODE, 16);	//250000
+  TIMER_EnableInt(TIMER2);
+  NVIC_EnableIRQ(TMR2_IRQn);
+  TIMER_Start(TIMER2);
+}
 void OpenAll(void) {
 	OpenKeyPad();
 	GPIO_SetMode(PD, BIT14, GPIO_MODE_OUTPUT);
 	GPIO_SetMode(PC, BIT12, GPIO_MODE_OUTPUT);
-		GPIO_SetMode(PC, BIT13, GPIO_MODE_OUTPUT);
-		GPIO_SetMode(PC, BIT14, GPIO_MODE_OUTPUT);
-		GPIO_SetMode(PC, BIT15, GPIO_MODE_OUTPUT);
+	GPIO_SetMode(PC, BIT13, GPIO_MODE_OUTPUT);
+	GPIO_SetMode(PC, BIT14, GPIO_MODE_OUTPUT);
+	GPIO_SetMode(PC, BIT15, GPIO_MODE_OUTPUT);
+	OpenSevenSegment();
 	init_LCD();
   clear_LCD();
 	OpenSevenSegment();
@@ -227,16 +261,9 @@ int main(void)
 	Init_ADC();
 	
 	//Y<2000 left ;  Y>3500 right
-	/*while(1){
-	sprintf(Text0, "%d", X);
-	    sprintf(Text1, "%d", Y);
-	    print_Line(1, Text0);
-	    print_Line(2, Text1);
-	}*/
-	//sprintf(Text,"T = %5d", u32ADCvalue);
-	//print_Line(1, Text);
 	srand(u32ADCvalue);
 	Init_Timer1();
+	//Init_Timer2();
 	for(m=0; m<totalPlat; m++) {
 		platy[m] = (rand() % yseed) * ylong;
 		platType[m] = rand()%5;
@@ -247,9 +274,16 @@ int main(void)
 	draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 	
   while(1)
+<<<<<<< Updated upstream
 	{
 		//input = ScanKey();	//ScanKey test
 		//if(input == 2) {	//Scankey test
+=======
+	{	
+		if(GG == 1){
+			break;
+		}
+>>>>>>> Stashed changes
 		if(Y<2000) {	//people left
 			Clear(peoplex,peopley, 1);
 			if(peopley!=0) {
@@ -269,5 +303,10 @@ int main(void)
 		
 		CLK_SysTickDelay(1000000);
 	}
-
+	clear_LCD();
+	print_Line(1,"Game Over");
+	strcpy(Text,"-");
+	sprintf(Text1,"%d",score);
+	strcat(Text,Text1);
+	print_Line(2,Text);
 }

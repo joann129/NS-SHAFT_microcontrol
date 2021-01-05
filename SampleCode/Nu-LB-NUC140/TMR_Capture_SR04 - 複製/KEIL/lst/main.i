@@ -22003,7 +22003,11 @@ int16_t peopley = 24;
 int16_t platx[7] = {96,80,64,48,32,16,0};
 int16_t platy[7] = {0,0,0,24,0,0,0};
 int platType[7] = {0,0,0,0,0,0,0};
+<<<<<<< Updated upstream
 int score=1, cnt=1, live=4, flag=0;
+=======
+int score=0, live=4, flag=0, GG=0;
+>>>>>>> Stashed changes
 uint8_t ledState = 0;
 uint32_t keyin = 0;
 int input; 
@@ -22036,6 +22040,10 @@ void life(int num){
 		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((13)<<2))))=1;
 		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((14)<<2))))=1;
 		(*((volatile uint32_t *)(((((( uint32_t)0x50000000) + 0x4000) + 0x0200)+(0x40*(2))) + ((15)<<2))))=1;
+		
+		GG = 1;
+		TIMER_Close(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)));
+		
 	}
 }
 void ADC_IRQHandler(void)
@@ -22061,6 +22069,21 @@ void Init_ADC(void)
 		((((ADC_T *) ((( uint32_t)0x40000000) + 0xE0000)))->ADCR |= (1ul << 11));
 }
 void TMR2_IRQHandler(void){
+	int i;
+	for(i=0;i<100;i++){
+		CloseSevenSegment();
+		ShowSevenSegment(3,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(2,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(1,0);
+		CLK_SysTickDelay(100);
+		CloseSevenSegment();
+		ShowSevenSegment(0,0);
+		CLK_SysTickDelay(100);
+	}
 	
 }
 void TMR1_IRQHandler(void)
@@ -22075,12 +22098,17 @@ void TMR1_IRQHandler(void)
 		}
 	}
 	
+	if(peoplex+8 == 110){
+		live--;
+		life(live);
+	}
+	
 	if(i == 7) {	
 		peoplex -= 2;
 		flag = 0;
 	}else{								
 		peoplex += 1;
-		if(platType[i]==1 || platType[i]==2){
+		if(platType[i]==1 || platType[i]==2 ){
 			if(flag==0){
 				flag=1;
 				live--;
@@ -22088,7 +22116,7 @@ void TMR1_IRQHandler(void)
 			}
 		}else{
 			if(flag==1){
-			flag=0;
+				flag=0;
 			}
 		}
 	}
@@ -22128,7 +22156,6 @@ void TMR1_IRQHandler(void)
 			
 			
 	}
-	
 	TIMER_ClearIntFlag(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020))); 
 }
 
@@ -22139,14 +22166,21 @@ void Init_Timer1(void)
   NVIC_EnableIRQ(TMR1_IRQn);
   TIMER_Start(((TIMER_T *) ((( uint32_t)0x40000000) + 0x10020)));
 }
-
+void Init_Timer2(void)
+{
+  TIMER_Open(((TIMER_T *) ((( uint32_t)0x40100000) + 0x10000)), (1UL << 27), 16);	
+  TIMER_EnableInt(((TIMER_T *) ((( uint32_t)0x40100000) + 0x10000)));
+  NVIC_EnableIRQ(TMR2_IRQn);
+  TIMER_Start(((TIMER_T *) ((( uint32_t)0x40100000) + 0x10000)));
+}
 void OpenAll(void) {
 	OpenKeyPad();
 	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x00C0)), 0x00004000, 0x1UL);
 	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00001000, 0x1UL);
-		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00002000, 0x1UL);
-		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00004000, 0x1UL);
-		GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00008000, 0x1UL);
+	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00002000, 0x1UL);
+	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00004000, 0x1UL);
+	GPIO_SetMode(((GPIO_T *) (((( uint32_t)0x50000000) + 0x4000) + 0x0080)), 0x00008000, 0x1UL);
+	OpenSevenSegment();
 	init_LCD();
   clear_LCD();
 	OpenSevenSegment();
@@ -22166,16 +22200,9 @@ int main(void)
 	Init_ADC();
 	
 	
-	
-
-
-
-
- 
-	
-	
 	srand(u32ADCvalue);
 	Init_Timer1();
+	
 	for(m=0; m<7; m++) {
 		platy[m] = (rand() % 7) * 8;
 		platType[m] = rand()%5;
@@ -22186,9 +22213,16 @@ int main(void)
 	draw_Bmp8x8(peoplex,peopley,0xFFFF,0x0000,people);
 	
   while(1)
+<<<<<<< Updated upstream
 	{
 		
 		
+=======
+	{	
+		if(GG == 1){
+			break;
+		}
+>>>>>>> Stashed changes
 		if(Y<2000) {	
 			Clear(peoplex,peopley, 1);
 			if(peopley!=0) {
@@ -22208,5 +22242,10 @@ int main(void)
 		
 		CLK_SysTickDelay(1000000);
 	}
-
+	clear_LCD();
+	print_Line(1,"Game Over");
+	strcpy(Text,"-");
+	sprintf(Text1,"%d",score);
+	strcat(Text,Text1);
+	print_Line(2,Text);
 }
