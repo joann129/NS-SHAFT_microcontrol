@@ -223,7 +223,6 @@ F (..\..\..\..\Library\StdDriver\src\adc.c)(0x5A1E2A44)(-c --cpu Cortex-M0 -D__E
 I (..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include\NUC100Series.h)(0x5A784CF0)
 I (..\..\..\..\Library\CMSIS\Include\core_cm0.h)(0x5A1E2A44)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
-<<<<<<< Updated upstream
 I (..\..\..\..\Library\CMSIS\Include\core_cmInstr.h)(0x5A1E2A44)
 I (..\..\..\..\Library\CMSIS\Include\core_cmFunc.h)(0x5A1E2A44)
 I (..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include\system_NUC100Series.h)(0x5A1E2A44)
@@ -247,33 +246,7 @@ I (..\..\..\..\Library\StdDriver\inc\SC.h)(0x5A1E2A44)
 I (..\..\..\..\Library\StdDriver\inc\PS2.h)(0x5A1E2A44)
 I (..\..\..\..\Library\StdDriver\inc\CLK.h)(0x5A1E2A44)
 I (..\..\..\..\Library\StdDriver\inc\ACMP.h)(0x5A1E2A44)
-F (..\main.c)(0x5FF2AFAA)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ..\..\..\..\Library\CMSIS\Include -I ..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include -I ..\..\..\..\Library\StdDriver\inc -I ..\..\..\..\Library\Nu-LB-NUC140\Include -I ..\-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DDEBUG_ENABLE_SEMIHOST-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
-=======
-I (..\..\..\..\Library\CMSIS\Include\core_cmInstr.h)(0x5FD4BF3C)
-I (..\..\..\..\Library\CMSIS\Include\core_cmFunc.h)(0x5FD4BF3C)
-I (..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include\system_NUC100Series.h)(0x5FD4BF3C)
-I (..\..\..\..\Library\StdDriver\inc\SYS.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\ADC.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\FMC.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\GPIO.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\I2C.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\PWM.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\SPI.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\CRC.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\TIMER.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\WDT.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\WWDT.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\RTC.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\UART.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\I2S.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\USBD.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\PDMA.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\SC.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\PS2.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\CLK.h)(0x5FD4BF3D)
-I (..\..\..\..\Library\StdDriver\inc\ACMP.h)(0x5FD4BF3D)
-F (..\main.c)(0x5FE98577)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ..\..\..\..\Library\CMSIS\Include -I ..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include -I ..\..\..\..\Library\StdDriver\inc -I ..\..\..\..\Library\Nu-LB-NUC140\Include -I ..\-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DDEBUG_ENABLE_SEMIHOST-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
->>>>>>> Stashed changes
+F (..\main.c)(0x5FF4F9F3)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ..\..\..\..\Library\CMSIS\Include -I ..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include -I ..\..\..\..\Library\StdDriver\inc -I ..\..\..\..\Library\Nu-LB-NUC140\Include -I ..\-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DDEBUG_ENABLE_SEMIHOST-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
 I (..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include\NUC100Series.h)(0x5A784CF0)
 I (..\..\..\..\Library\CMSIS\Include\core_cm0.h)(0x5A1E2A44)
@@ -305,17 +278,10 @@ I (..\MCU_init.h)(0x5FE971A0)
 I (..\..\..\..\Library\Nu-LB-NUC140\Include\SYS_init.h)(0x5AD5A3D0)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5EC77604)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
-<<<<<<< Updated upstream
 I (..\..\..\..\Library\Nu-LB-NUC140\Include\LCD.h)(0x53D533EE)
 I (..\..\..\..\Library\Nu-LB-NUC140\Include\Scankey.h)(0x530AAF52)
 I (..\..\..\..\Library\Nu-LB-NUC140\Include\Seven_Segment.h)(0x55388C82)
 F (..\..\..\..\Library\Nu-LB-NUC140\Source\SYS_init.c)(0x5CC71C2E)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ..\..\..\..\Library\CMSIS\Include -I ..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include -I ..\..\..\..\Library\StdDriver\inc -I ..\..\..\..\Library\Nu-LB-NUC140\Include -I ..\-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DDEBUG_ENABLE_SEMIHOST-o .\obj\sys_init.o --omf_browse .\obj\sys_init.crf --depend .\obj\sys_init.d)
-=======
-I (..\..\..\..\Library\Nu-LB-NUC140\Include\LCD.h)(0x5FD4BF3C)
-I (..\..\..\..\Library\Nu-LB-NUC140\Include\Scankey.h)(0x5FD4BF3C)
-I (..\..\..\..\Library\Nu-LB-NUC140\Include\Seven_Segment.h)(0x5FD4BF3C)
-F (..\..\..\..\Library\Nu-LB-NUC140\Source\SYS_init.c)(0x5FD4BF3C)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ..\..\..\..\Library\CMSIS\Include -I ..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include -I ..\..\..\..\Library\StdDriver\inc -I ..\..\..\..\Library\Nu-LB-NUC140\Include -I ..\-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DDEBUG_ENABLE_SEMIHOST-o .\obj\sys_init.o --omf_browse .\obj\sys_init.crf --depend .\obj\sys_init.d)
->>>>>>> Stashed changes
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
 I (..\..\..\..\Library\Device\Nuvoton\NUC100Series\Include\NUC100Series.h)(0x5A784CF0)
 I (..\..\..\..\Library\CMSIS\Include\core_cm0.h)(0x5A1E2A44)

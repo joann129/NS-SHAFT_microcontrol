@@ -64,11 +64,7 @@ int16_t peopley = 24;
 int16_t platx[totalPlat] = {96,80,64,48,32,16,0};
 int16_t platy[totalPlat] = {0,0,0,24,0,0,0};//47
 int platType[totalPlat] = {0,0,0,0,0,0,0};
-<<<<<<< Updated upstream
-int score=1, cnt=1, live=4, flag=0;
-=======
-int score=0, live=4, flag=0, GG=0;
->>>>>>> Stashed changes
+int score=1, cnt=1, live=4, flag=0, GG=0;
 uint8_t ledState = 0;
 uint32_t keyin = 0;
 int input; //Scankey test
@@ -100,8 +96,7 @@ void life(int num){
 		PC12=1;
 		PC13=1;
 		PC14=1;
-		PC15=1;
-		
+		PC15=1;		
 		GG = 1;
 		TIMER_Close(TIMER1);
 		
@@ -129,24 +124,7 @@ void Init_ADC(void)
     NVIC_EnableIRQ(ADC_IRQn);
 		ADC_START_CONV(ADC);
 }
-void TMR2_IRQHandler(void){
-	int i;
-	for(i=0;i<100;i++){
-		CloseSevenSegment();
-		ShowSevenSegment(3,0);
-		CLK_SysTickDelay(100);
-		CloseSevenSegment();
-		ShowSevenSegment(2,0);
-		CLK_SysTickDelay(100);
-		CloseSevenSegment();
-		ShowSevenSegment(1,0);
-		CLK_SysTickDelay(100);
-		CloseSevenSegment();
-		ShowSevenSegment(0,0);
-		CLK_SysTickDelay(100);
-	}
-	//TIMER_ClearIntFlag(TIMER2);
-}
+
 void TMR1_IRQHandler(void)
 {	
 	char str[10],line[50];
@@ -181,19 +159,19 @@ void TMR1_IRQHandler(void)
 			}
 		}
 	}
+	if(peoplex==0 || peoplex==1 || peoplex==-1) {
+		GG=1;
+	}
 	//peopley -= 1;
 	for(i=0; i<totalPlat; i++) { // plate move up
 		Clear(platx[i],platy[i], 2);
 		platx[i] += 1;
 	}
-	
-	//for(i=0; i<3; i++) {	//Prevent flicker
+
 		for(j=0; j<totalPlat; j++) {
 			draw_Bmp8x16(platx[j],platy[j],FG_COLOR,BG_COLOR,platSting[platType[j]]);
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 		}
-		
-	//}
 	
 	if(platx[0]==104) { //plate disappear
 			Clear(platx[0],platy[0], 2);
@@ -212,10 +190,7 @@ void TMR1_IRQHandler(void)
 	if(platx[5]==16) {  //add plate
 			platy[6] = (rand() % yseed) * ylong;
 			platx[6] = 0;
-			platType[6] = rand() % 5;
-			
-			
-			
+			platType[6] = rand() % 5;			
 	}
 	TIMER_ClearIntFlag(TIMER1); // Clear Timer1 time-out interrupt flag
 }
@@ -241,10 +216,8 @@ void OpenAll(void) {
 	GPIO_SetMode(PC, BIT13, GPIO_MODE_OUTPUT);
 	GPIO_SetMode(PC, BIT14, GPIO_MODE_OUTPUT);
 	GPIO_SetMode(PC, BIT15, GPIO_MODE_OUTPUT);
-	OpenSevenSegment();
 	init_LCD();
   clear_LCD();
-	OpenSevenSegment();
 }
 
 int m,n;//for
@@ -274,25 +247,22 @@ int main(void)
 	draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
 	
   while(1)
-<<<<<<< Updated upstream
 	{
-		//input = ScanKey();	//ScanKey test
-		//if(input == 2) {	//Scankey test
-=======
-	{	
 		if(GG == 1){
 			break;
 		}
->>>>>>> Stashed changes
-		if(Y<2000) {	//people left
+		input = ScanKey();	//ScanKey test
+		if(input == 2) {	//Scankey test
+		
+		//if(Y<2000) {	//people left
 			Clear(peoplex,peopley, 1);
 			if(peopley!=0) {
 				peopley -= 8;
 			}
 			clearBuff();
 			draw_Bmp8x8(peoplex,peopley,FG_COLOR,BG_COLOR,people);
-		}//else if(input == 8) {	//Scankey test
-		else if(Y > 3500) {	//people right
+		}else if(input == 8) {	//Scankey test
+		//else if(Y > 3500) {	//people right
 			Clear(peoplex,peopley, 1);
 			if(peopley<56) {
 				peopley += 8;
