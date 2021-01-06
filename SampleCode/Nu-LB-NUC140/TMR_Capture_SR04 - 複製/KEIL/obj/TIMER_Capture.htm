@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\TIMER_Capture.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\TIMER_Capture.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jan 06 22:42:40 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jan 06 23:11:31 2021
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -648,10 +648,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER_Close
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TMR1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TMR1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[26]"></a>main</STRONG> (Thumb, 306 bytes, Stack size 24 bytes, main.o(i.main))
+<P><STRONG><a name="[26]"></a>main</STRONG> (Thumb, 312 bytes, Stack size 24 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = main &rArr; OpenAll &rArr; init_LCD &rArr; init_SPI3 &rArr; SPI_Open &rArr; CLK_GetHCLKFreq &rArr; SystemCoreClockUpdate &rArr; __aeabi_uidivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
@@ -665,6 +666,7 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearBuff
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Init
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clear
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;life
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OpenAll
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Timer1
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC

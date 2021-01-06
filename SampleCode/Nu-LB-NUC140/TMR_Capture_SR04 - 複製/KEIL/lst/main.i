@@ -22218,4 +22218,5 @@ int main(void)
 	sprintf(Text1,"%d",score);
 	strcat(Text,Text1);
 	print_Line(2,Text);
+	life(0);
 }
