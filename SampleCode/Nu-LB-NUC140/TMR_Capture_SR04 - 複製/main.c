@@ -234,9 +234,9 @@ int main(void)
 	Init_ADC();
 	
 	//Y<2000 left ;  Y>3500 right
-	srand(u32ADCvalue);
+	
 	Init_Timer1();
-	//Init_Timer2();
+	srand(u32ADCvalue);
 	for(m=0; m<totalPlat; m++) {
 		platy[m] = (rand() % yseed) * ylong;
 		platType[m] = rand()%5;

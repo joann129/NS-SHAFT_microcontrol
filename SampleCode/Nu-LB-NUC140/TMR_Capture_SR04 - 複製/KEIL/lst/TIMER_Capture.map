@@ -102,8 +102,8 @@ Section Cross References
     main.o(i.main) refers to sys_init.o(i.SYS_Init) for SYS_Init
     main.o(i.main) refers to main.o(i.OpenAll) for OpenAll
     main.o(i.main) refers to main.o(i.Init_ADC) for Init_ADC
-    main.o(i.main) refers to rand.o(.text) for srand
     main.o(i.main) refers to main.o(i.Init_Timer1) for Init_Timer1
+    main.o(i.main) refers to rand.o(.text) for srand
     main.o(i.main) refers to idiv.o(.text) for __aeabi_idivmod
     main.o(i.main) refers to lcd.o(i.draw_Bmp8x64) for draw_Bmp8x64
     main.o(i.main) refers to lcd.o(i.draw_Bmp8x8) for draw_Bmp8x8

@@ -22173,9 +22173,9 @@ int main(void)
 	Init_ADC();
 	
 	
-	srand(u32ADCvalue);
-	Init_Timer1();
 	
+	Init_Timer1();
+	srand(u32ADCvalue);
 	for(m=0; m<7; m++) {
 		platy[m] = (rand() % 7) * 8;
 		platType[m] = rand()%5;

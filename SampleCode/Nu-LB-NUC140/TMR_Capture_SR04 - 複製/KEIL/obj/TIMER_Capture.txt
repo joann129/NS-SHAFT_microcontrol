@@ -2843,10 +2843,10 @@
         0x000015e0:    2600        .&      MOVS     r6,#0
         0x000015e2:    6386        .c      STR      r6,[r0,#0x38]
         0x000015e4:    f7fff922    ..".    BL       Init_ADC ; 0x82c
-        0x000015e8:    4d48        HM      LDR      r5,[pc,#288] ; [0x170c] = 0x20000034
-        0x000015ea:    69e8        .i      LDR      r0,[r5,#0x1c]
-        0x000015ec:    f7fefdf7    ....    BL       srand ; 0x1de
-        0x000015f0:    f7fff93a    ..:.    BL       Init_Timer1 ; 0x868
+        0x000015e8:    f7fff93e    ..>.    BL       Init_Timer1 ; 0x868
+        0x000015ec:    4d47        GM      LDR      r5,[pc,#284] ; [0x170c] = 0x20000034
+        0x000015ee:    69e8        .i      LDR      r0,[r5,#0x1c]
+        0x000015f0:    f7fefdf5    ....    BL       srand ; 0x1de
         0x000015f4:    462c        ,F      MOV      r4,r5
         0x000015f6:    34d2        .4      ADDS     r4,r4,#0xd2
         0x000015f8:    4f45        EO      LDR      r7,[pc,#276] ; [0x1710] = 0x200008f8
